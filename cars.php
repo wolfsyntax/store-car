@@ -1,14 +1,10 @@
-<?php
-$con = mysqli_connect('LocalHost', 'root', '');
-mysqli_select_db($con, 'gallery')
 
-?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>WaterBoat &mdash; Website Template by Colorlib</title>
+  <title>Cars | Manonamission</title>
   <link rel="shortcut icon" type="image/png" href="Images/logo1.jpg">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
