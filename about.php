@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>About &mdash;</title>
+  <title>About | Manonamission</title>
   <link rel="shortcut icon" type="image/png" href="Images/logo1.jpg">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -149,13 +149,13 @@
       
     
 
-      <div class="intro-section" style="background-image: url('images/hero_2.jpg');">
+      <div class="intro-section" style="background-image: url('images/about.jpg');">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-lg-7 mx-auto text-center" data-aos="fade-up">
-              <h1>About WaterBoat</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, in distinctio nostrum laborum sed quisquam voluptate facilis non.</p>
-              <p><a href="#" class="btn btn-primary py-3 px-5">Contact</a></p>
+              <h1>About Us</h1>
+              <p>Man on a mission motor is a userd car dealership who aims to please all its costomers With quality motor cars and trucks at affordable prices .</p>
+              <p><a href="contact.php" class="btn btn-primary py-3 px-5">Contact</a></p>
             </div>
           </div>
         </div>
@@ -215,9 +215,9 @@
           <div class="col-12">
             <div class="copyright">
                 <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    
                     </p>
             </div>
           </div>
