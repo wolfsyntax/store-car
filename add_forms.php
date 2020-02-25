@@ -51,7 +51,7 @@
 
       }
 
-      $fileName = basename($_FILES['coverPhoto']['name'][$key]);
+      $fileName = basename($_FILES['coverPhoto']['name']);
 
       $targetFilePath = $target_dir . $fileName;
 
@@ -60,15 +60,16 @@
       if(!empty($result)){
 
         $result = trim($result,',');  
-        $sql = "INSERT INTO cars (brandName, carModel, manufactureYear, carPrice, carDescription, coverPhoto, status, downpayment) VALUES ('$brandName','$modelName','$year','$price', '$description', '$fileName','$status', '$downpayment')";
+        $sql = "INSERT INTO cars (brandName, carModel, manufactureYear, carPrice, carDescription, coverPhoto, status, downpayment) VALUES ('$brandName','$modelName','$year','$price', '$description', '$targetFilePath','$status', '$downpayment')";
 
         if(mysqli_query($db, $sql)){
         
-          echo "Inserted";
-        
+          header( "Location: cars.php" );
+          exit ;
         }else{
           
-          echo "Not inserted";
+          header( "Location: add_forms.php" );
+          exit ;
 
         }
         
@@ -176,7 +177,7 @@
                 Cover Photo:
               </label>
               <div class="col">
-                <input type="file" maxlength="196" name="coverPhoto">
+                <input type="file" accept="image/jpg,image/jpeg,image/*" name="coverPhoto">
               </div>
             </div>
           </div>
