@@ -21,62 +21,85 @@
     
     $dataImage = [];
 
-    if(!empty(array_filter($_FILES['gallery']['name']))){
+    $fileName = basename($_FILES['coverPhoto']['name']);
 
-      foreach($_FILES['gallery']['name'] as $key=>$val){
+    $targetFilePath = $target_dir . $fileName;
+
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+    //if(!empty($result)){
+
+      //
+      $sql = "INSERT INTO cars (brandName, carModel, manufactureYear, carPrice, carDescription, coverPhoto, status, downpayment) VALUES ('$brandName','$modelName','$year','$price', '$description', '$targetFilePath','$status', '$downpayment')";
+
+      if(mysqli_query($db, $sql)){
+        $last_id = $db->insert_id;
+
+        if(!empty(array_filter($_FILES['gallery']['name']))){
+      
+          $image_data = [];
+          $counter = 0;
+          $errorUploadType = '';
+
+          foreach($_FILES['gallery']['name'] as $key=>$val){
         
-        $fileName = basename($_FILES['gallery']['name'][$key]);
+            $fileName = basename($_FILES['gallery']['name'][$key]);
 
-        $targetFilePath = $target_dir . $fileName;
+            $targetFilePath = $target_dir . $fileName;
 
-        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
-        if(in_array($fileType, $allowTypes)){
-        // Upload file to server
-          if(move_uploaded_file($_FILES["gallery"]["tmp_name"][$key], $targetFilePath)){
-            // Image db insert sql
-            $result .= "('".$fileName."', NOW()),";
+            if(in_array($fileType, $allowTypes)){
+            // Upload file to server
+              if(move_uploaded_file($_FILES["gallery"]["tmp_name"][$key], $targetFilePath)){
+                // Image db insert sql
+                $result .= "('".$fileName."', NOW()),";
 
-          }else{
+              }else{
 
-            $errorUpload .= $_FILES['gallery']['name'][$key].', ';
+                $errorUpload .= $_FILES['gallery']['name'][$key].', ';
+
+              }
+
+              if($counter < 12){
+                $image[$counter++] = $targetFilePath;  
+              }
+              
+            }else{
+
+              $errorUploadType .= $_FILES['gallery']['name'][$key].', ';
+
+            }
 
           }
 
-        }else{
-
-          $errorUploadType .= $_FILES['gallery']['name'][$key].', ';
-
-        }
-
-      }
-
-      $fileName = basename($_FILES['coverPhoto']['name']);
-
-      $targetFilePath = $target_dir . $fileName;
-
-      $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-      if(!empty($result)){
-
-        $result = trim($result,',');  
-        $sql = "INSERT INTO cars (brandName, carModel, manufactureYear, carPrice, carDescription, coverPhoto, status, downpayment) VALUES ('$brandName','$modelName','$year','$price', '$description', '$targetFilePath','$status', '$downpayment')";
-
-        if(mysqli_query($db, $sql)){
-        
-          header( "Location: cars.php" );
-          exit ;
-        }else{
+          $result = trim($result,',');  
           
-          header( "Location: add_forms.php" );
-          exit ;
+          if(!empty($errorUploadType)){
+
+            $sql = "INSERT INTO images (car_id, img01, img02, img03, img04, img05, img06, img07, img08, img09, img10, img11, img12) 
+            VALUES ('$last_id','$image[0]','$image[1]','$image[2]','$image[3]', '$image[4]', '$image[5]','$image[6]', '$image[7]', '$image[8]', '$image[9]','$image[10]','$image[11]')";
+
+            if(mysqli_query($db, $sql)){
+              header( "Location: cars.php" );
+              exit;
+            }
+
+          }
 
         }
-        
-        return "Saving  $result";
-
+        //
+        //exit ;
       }
-    }
+        
+      header( "Location: add_forms.php" );
+      exit ;
+
+      return "Saving  $result";
+
+    //}
+
+    
   }
 
 ?>
@@ -221,7 +244,7 @@
               <div class="col">
                 <input type="file" name="gallery[]" multiple accept="image/jpg,image/jpeg,image/*" class="custom-input upload-file">
                 <small class="form-text text-muted">
-                  Note: 6 to 12 images only
+                  Please upload exact 12 images only.
                 </small>
               </div>
             </div>

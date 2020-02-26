@@ -2,7 +2,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+    include_once 'database.php';
+    $sql = "Select * From Cars JOIN Images ON cars._id = images.car_id";
+    
+    $query = mysqli_query($db, $sql);
+    
+?>
 <head>
   <title>Cars | Manonamission</title>
   <link rel="shortcut icon" type="image/png" href="Images/logo1.jpg">
@@ -150,33 +156,31 @@
         </div>
         
           <h2 class="text-center">Featured Vehicle</h2><br>
+          <?php while ($row = mysqli_fetch_array($query)) { ?>
+      
+    
           <div class="col-md-6 col-lg-4 mb-4">
+
             <div class="service-39381">
-              <img src="images/honda.jpg" alt="Image" class="img-fluid">
+              <img src="<?= $row['coverPhoto'] ?>" alt="Image" class="img-fluid">
               <div class="p-4">
-                <h3><a href="#"><span class="icon-room mr-1 text-primary"></span> Croatia &mdash; Columbia</a></h3>
+                <h3><a href="#"><span class="icon-room mr-1 text-primary"></span> <?= $row['brandName']?> &mdash; <?= $row['carModel']?></a></h3>
                 <div class="d-flex">
                   <div class="mr-auto">
                     <span class="icon-date_range"></span>
-                    2000
+                    <?= $row['manufactureYear']?>
                   </div>
                   <div class="ml-auto price">
-                    <span class="bg-primary">$600</span>
+                    <span class="bg-primary">$<?= $row['carPrice'] ?></span>
                       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#details-3">Details</button>
                   </div>
-                  
-            
-
-                  
-               
-                  
-             
-                  
                 </div>
               </div>
             </div>
           </div>
-
+        <?php 
+          }
+        ?>
         </div>
       </div>
     </div>
