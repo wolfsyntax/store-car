@@ -62,9 +62,11 @@
               }
 
               if($counter < 12){
-                $image[$counter++] = $targetFilePath;  
+                $image[$counter] = $targetFilePath;  
               }
               
+              $counter++;
+
             }else{
 
               $errorUploadType .= $_FILES['gallery']['name'][$key].', ';
